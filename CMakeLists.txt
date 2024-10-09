@@ -12,7 +12,7 @@ endif()
 project ("optimal_guidance")
 
 # Добавьте источник в исполняемый файл этого проекта.
-add_executable (optimal_guidance "optimal_guidance.cpp" "optimal_guidance.h" "uav.h" "uav.cpp" "target.cpp" "target.h")
+add_executable (optimal_guidance "src/optimal_guidance.cpp" "src/optimal_guidance.h" "src/uav.h" "src/uav.cpp" "src/target.cpp" "src/target.h")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET optimal_guidance PROPERTY CXX_STANDARD 20)

@@ -26,7 +26,7 @@ Target::~Target()
 void Target::random_acceleration()
 {
 	std::mt19937 gen(rd());
-	std::normal_distribution<> dis(0, 0.1);
+	std::normal_distribution<> dis(0, 0.01);
 
 	this->a_x = dis(gen);
 	this->a_y = dis(gen);
