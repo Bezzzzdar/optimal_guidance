@@ -1,4 +1,12 @@
 *.png
 *.csv
-out
 *.vs
+*.vcxproj*
+*.sln
+CMakeCache.txt
+cmake_install.cmake
+CMakeFiles
+Debug
+optimal_guidance.dir
+x64
+
