@@ -6,11 +6,11 @@
 #include <cmath>
 #include <random>
 
-/****************************************************
+/**********************************************************
 *
-*	Class for modeling ground maneuvering target  
+*		Class for modeling ground maneuvering target  
 * 
-****************************************************/
+***********************************************************/
 class Target
 {
 private:
@@ -26,7 +26,7 @@ private:
 	std::vector<double> t_values;
 
 	std::ofstream out;
-	const char* output_file = "D:\\Projects\\optimal_guidance\\values\\target_values.csv"; // TODO: fix this hardcode
+	const char* output_file = ".\\values\\target_values.csv";
 
 	std::random_device rd;
 
