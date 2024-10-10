@@ -3,6 +3,7 @@
 *.vs
 *.vcxproj*
 *.sln
+out
 CMakeCache.txt
 cmake_install.cmake
 CMakeFiles
