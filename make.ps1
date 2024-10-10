@@ -22,6 +22,7 @@ elseif ($argv -eq "--clean")
     Remove-Item "*.vcxproj"
     Remove-Item "*.vcxproj.filters"
     Remove-Item "*.sln"
+    Remove-Item ".\values\target_values.csv"
 } 
 
 exit 0
