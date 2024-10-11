@@ -16,6 +16,7 @@ $$\cos\vartheta_{a}\sin\psi_{a}=\cos\alpha\cos\beta\cos\vartheta\sin\psi+\cos\be
 $$\cos\vartheta_{a}\sin\gamma_{a}=\cos\alpha\sin\beta\sin\vartheta+\cos\beta\cos\vartheta\sin\gamma-\sin\alpha\sin\beta\cos\beta\cos\gamma\cos\vartheta$$
 
 Где:
+
 $$n_{ax}=\frac{P\cos\alpha\cos\beta-X_{a}}{mg}$$
 $$n_{ay}=\frac{P\sin\alpha+Y_{a}}{mg}$$
 $$n_{az}=\frac{-P\cos\alpha\sin\beta+Z_{a}}{mg}$$
