@@ -1,6 +1,6 @@
 *.png
 *.csv
-*.vs
+*.vs*
 *.vcxproj*
 *.sln
 out
