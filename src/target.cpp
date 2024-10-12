@@ -1,22 +1,22 @@
 #include "target.h"
 
-void Target::update_values(double x, double y, double v, double t)
+void Target::update_values(double t)
 {
-	this->x = x;
-	this->y = y;
-	this->z = 0;
-	this->v = v;
-
-	this->x_values.push_back(x);
-	this->y_values.push_back(y);
-	this->z_values.push_back(z);
-	this->v_values.push_back(v);
+	this->x_values.push_back(this->x);
+	this->y_values.push_back(this->y);
+	this->z_values.push_back(this->z);
+	this->v_values.push_back(this->v);
 	this->t_values.push_back(t);
 }
 
 Target::Target(double x0, double y0)
 {
-	this->update_values(x0, y0, 0, 0); // target has initial speed == 0
+	this->x = x0;
+	this->y = y0;
+	this->z = 0;
+	this->v = 0;
+
+	this->update_values(0); // target has initial speed == 0
 }
 
 Target::~Target()
@@ -43,23 +43,20 @@ void Target::update_position(double t, double dt)
 	this->x += this->v_x * dt;
 	this->y += this->v_y * dt;
 
-	this->update_values(x, y, v, t);
+	this->update_values(t);
 }
 
 void Target::dump_values()
 {
-	std::ofstream file;
-	file.open(this->output_file);
-	if (file.is_open())
+	std::fstream file;
+	file.open(this->output_file, std::ios::out | std::ios::app);
+	if (!(file.is_open()))
 	{
-		std::cout << "file is open!" << std::endl;
-		for (size_t i = 0; i < x_values.size(); ++i) {
-			file << this->x_values[i] << "," << this->y_values[i] << "," << this->z_values[i] << "," << this->v_values[i] << "," << this->t_values[i] << "\n";
-		}
+		throw std::exception("File isn't open!");
 	}
-	else
-	{
-		std::cout << "file isn't open" << std::endl;
+	std::cout << "file is open!" << std::endl;
+	for (size_t i = 0; i < this->x_values.size(); ++i) {
+		file << this->x_values[i] << "," << this->y_values[i] << "," << this->z_values[i] << "," << this->v_values[i] << "," << this->t_values[i] << "\n";
 	}
 	file.close();
 }

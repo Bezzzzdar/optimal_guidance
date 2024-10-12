@@ -5,6 +5,7 @@
 #include <fstream>
 #include <cmath>
 #include <random>
+#include <exception>
 
 /**********************************************************
 *
@@ -25,16 +26,15 @@ private:
 	std::vector<double> v_values;
 	std::vector<double> t_values;
 
-	std::ofstream out;
 	const char* output_file = ".\\values\\target_values.csv";
 
 	std::random_device rd;
 
+	void random_acceleration();
+	void update_values(double t);
 public:
 	Target(double x0, double y0);
 	~Target();
-	void update_values(double x, double y, double v, double t);
 	void update_position(double t, double dt);
-	void random_acceleration();
 	void dump_values();
 };
