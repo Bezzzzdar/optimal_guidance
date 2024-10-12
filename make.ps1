@@ -2,16 +2,14 @@ param (
     [string]$argv
 )
 
-if ($argv -eq "--install")
-{
+function install {
     cmake.exe .\CMakeLists.txt
     cmake --build .
-    New-Item -ItemType Directory -Force -Path "plots"
     .\Debug\optimal_guidance.exe
+    New-Item -ItemType Directory -Force -Path "plots"
     gnuplot.exe .\values\plot.gnu
 }
-elseif ($argv -eq "--clean")
-{
+function clean {
     Remove-Item -Recurse -Force -Path "plots"
     Remove-Item -Recurse -Force -Path "CMakeFiles"
     Remove-Item -Recurse -Force -Path "Debug"
@@ -22,7 +20,21 @@ elseif ($argv -eq "--clean")
     Remove-Item "*.vcxproj"
     Remove-Item "*.vcxproj.filters"
     Remove-Item "*.sln"
-    Remove-Item ".\values\target_values.csv"
+    Remove-Item ".\values\*.csv"
+}
+
+if ($argv -eq "--install")
+{
+    install
+}
+elseif ($argv -eq "--clean")
+{
+    clean
 } 
+elseif ($argv -eq "--rebuild") 
+{
+    clean
+    install
+}
 
 exit 0
