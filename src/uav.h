@@ -75,7 +75,7 @@ private:
 public:
 	UAV(state_vector_t *state_vector0, control_vector_t *u0, double t);
 	~UAV();
-	void update_position(double t, double dt);
+	int update_position(double t, double dt);
 	void dump_values();
 	
 };

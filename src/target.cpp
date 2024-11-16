@@ -9,12 +9,13 @@ void Target::update_values(double t)
 	this->t_values.push_back(t);
 }
 
-Target::Target(double x0, double y0)
+Target::Target(double x0, double y0, int TRAJECTORY_FLAG)
 {
 	this->x = x0;
 	this->y = y0;
 	this->z = 0;
-	this->v = 0;
+
+	this->TRAJECTORY = TRAJECTORY_FLAG;
 
 	this->update_values(0); // target has initial speed == 0
 }
@@ -23,26 +24,28 @@ Target::~Target()
 {
 }
 
-void Target::random_acceleration()
+void Target::update_position(double t)
 {
-	std::mt19937 gen(rd());
-	std::normal_distribution<> dis(0, 0.01);
-
-	this->a_x = dis(gen);
-	this->a_y = dis(gen);
-}
-
-void Target::update_position(double t, double dt)
-{
-	random_acceleration();
-
-	this->v_x = this->a_x * dt;
-	this->v_y = this->a_y * dt;
-	this->v = sqrt(pow(v_x, 2) + pow(v_y, 2));
-
-	this->x += this->v_x * dt;
-	this->y += this->v_y * dt;
-
+	// if (this->TRAJECTORY == ANGULAR_MANEUVERING)
+	// {
+	// 	this->theta = this->theta0 + this->omega0 * t + (this->a * pow(t, 2))/2;
+	// 	this->x = this->x0 + this->v * cos(this->theta) * t;
+	// 	this->y = this->y0 + this->v * sin(this->theta) * t;
+	// }
+	// else if (this->TRAJECTORY == COMPLEX_TRAJECTORY)
+	// {
+	// 	this->R = 10 + 5 * sin(t);
+	// 	this->theta = this->theta0 + this->omega0 * t + (this->a * pow(t, 2))/2;
+	// 	this->x = this->R * cos(this->omega);
+	// 	this->y = this->R * sin(this->omega);
+	// }
+	if (this->TRAJECTORY == SINUS_MANEUVERING)
+	{
+		this->x = this->v * t;
+		this->y = this->A * sin(this->omega * t);
+	}
+	
+	
 	this->update_values(t);
 }
 
@@ -54,7 +57,7 @@ void Target::dump_values()
 	{
 		throw std::exception("File isn't open!");
 	}
-	std::cout << "file is open!" << std::endl;
+	
 	for (size_t i = 0; i < this->x_values.size(); ++i) {
 		file << this->x_values[i] << "," << this->y_values[i] << "," << this->z_values[i] << "," << this->v_values[i] << "," << this->t_values[i] << "\n";
 	}

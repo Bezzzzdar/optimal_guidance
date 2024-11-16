@@ -24,7 +24,7 @@ UAV::~UAV()
 {
 }
 
-void UAV::update_position(double t, double dt)
+int UAV::update_position(double t, double dt)
 {
 	this->state_vector->V += this->dv_dt() * dt;
 	this->state_vector->theta += this->dtheta_dt() * dt;
@@ -43,7 +43,14 @@ void UAV::update_position(double t, double dt)
 	}
 
 	this->update_values(t);
-	
+
+	if (this->state_vector->y < 0)
+	{
+		std::cout << "UAV crashed to the ground!" << std::endl;
+		return -1;
+	}
+
+	return 0;
 }
 
 void UAV::dump_values()
@@ -54,7 +61,7 @@ void UAV::dump_values()
 	{
 		throw std::exception("File isn't open!");
 	}
-	std::cout << "file is open!" << std::endl;
+
 	for (size_t i = 0; i < this->x_values.size(); ++i) {
 		file << this->x_values[i] << "," << this->y_values[i] << "," << this->z_values[i] << "," << this->v_values[i] << "," << this->t_values[i] << "\n";
 	}

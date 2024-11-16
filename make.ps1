@@ -6,7 +6,7 @@ function install {
     cmake.exe .\CMakeLists.txt
     cmake --build .
     .\Debug\optimal_guidance.exe
-    New-Item -ItemType Directory -Force -Path "plots"
+    New-Item -ItemType Directory -Force -Path "plots" > $null 2>&1
     gnuplot.exe .\values\plot.gnu
 }
 function clean {
@@ -23,6 +23,11 @@ function clean {
     Remove-Item ".\values\*.csv"
 }
 
+function replot {
+    Remove-Item ".\plots\*.png"
+    gnuplot.exe .\values\plot.gnu
+}
+
 if ($argv -eq "--install")
 {
     install
@@ -35,6 +40,10 @@ elseif ($argv -eq "--rebuild")
 {
     clean
     install
+}
+elseif ($argv -eq "--replot") 
+{
+    replot
 }
 
 exit 0

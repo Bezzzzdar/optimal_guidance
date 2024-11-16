@@ -5,12 +5,11 @@
 #include "target.h"
 #include "uav.h"
 
-using namespace std;
-
 int main()
 {
+	int rc;
 	state_vector_t state_vector0;
-	state_vector0.V = 500;
+	state_vector0.V = 300;
 	state_vector0.theta = 0.373;
 	state_vector0.phi = 0.1;
 	state_vector0.x = 0;
@@ -26,22 +25,18 @@ int main()
 	double t = 0;
 
 	UAV uav(&state_vector0, &u, t);
-	Target target(0.0, 0.0);
+	Target target(0.0, 0.0, SINUS_MANEUVERING);
 
 	while (t <= 100)
 	{
-		target.update_position(t, dt);
+		target.update_position(t);
+		rc = uav.update_position(t, dt);
+		if (rc == -1)
+		{
+			break;
+		}
 		t += dt;
 	}
-	target.dump_values();
-
-	t = 0;
-	while (t <= 100)
-	{
-		uav.update_position(t, dt);
-		t += dt;
-	}
-	uav.dump_values();
 
 	return 0;
 }
